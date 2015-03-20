@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Bike Tracker</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="Start_Button">Start</string>
+    <string name="Welcome_Text">Welcome Biker!</string>
     <string name="action_settings">Settings</string>
 </resources>
