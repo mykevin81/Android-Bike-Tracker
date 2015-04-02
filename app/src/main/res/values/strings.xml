@@ -4,4 +4,7 @@
     <string name="Start_Button">Start</string>
     <string name="Welcome_Text">Welcome Biker!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_tracker">TrackerActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
