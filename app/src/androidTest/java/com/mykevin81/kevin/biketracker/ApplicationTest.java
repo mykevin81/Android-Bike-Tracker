@@ -1,4 +1,4 @@
-package com.example.kevin.biketracker;
+package com.mykevin81.kevin.biketracker;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,11 +1,9 @@
-package com.example.kevin.biketracker;
+package com.mykevin81.kevin.biketracker;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 
 public class TrackerActivity extends ActionBarActivity {
