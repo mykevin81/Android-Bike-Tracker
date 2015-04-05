@@ -3,7 +3,8 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="#99CC00">
 
     <Button
         android:layout_width="wrap_content"
@@ -15,26 +16,17 @@
         android:background="#33B5E5"
         android:onClick="WelcomeStart"/>
 
-
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/Welcome_Text"
+        android:id="@+id/Welcome_Text"
         android:layout_above="@+id/Start_button"
-        android:background="#99CC00">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="105dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/Welcome_Text"
-            android:id="@+id/Welcome_Text"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="87dp" />
 
-        </FrameLayout>
+
 
 </RelativeLayout>

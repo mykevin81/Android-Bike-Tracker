@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">Bike Tracker</string>
 
-    <string name="Start_Button">Start</string>
+    //Normal Text Strings
     <string name="Welcome_Text">Welcome Biker!</string>
+
+    //Button name strings
+    <string name="Start_Button">Start</string>
+
+    //Action Bar Strings
     <string name="action_settings">Settings</string>
+    <string name="action_share">Share</string>
+
+    //title strings
     <string name="title_activity_tracker">TrackerActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+
 </resources>
