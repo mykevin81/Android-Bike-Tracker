@@ -16,14 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.mykevin81.kevin.biketracker.TrackerActivity"
-            android:label="@string/title_activity_tracker"
-            android:parentActivityName="com.mykevin81.kevin.biketracker.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mykevin81.kevin.biketracker.MainActivity" />
-        </activity>
+        <activity android:name=".TrackerActivity"  android:label="Tracker" ></activity>
     </application>
 
 </manifest>

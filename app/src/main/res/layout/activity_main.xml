@@ -7,30 +7,34 @@
     android:background="#ff000000">
 
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Start_Button"
-        android:id="@+id/Start_button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/blank"
-        android:onClick="WelcomeStart"
-        android:textColor="#ff002009" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Welcome_Text"
+            android:layout_above="@+id/Start_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="105dp"
+            android:textColor="#ff02ff00"
+            android:textSize="30dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/Welcome_Text"
-        android:id="@+id/Welcome_Text"
-        android:layout_above="@+id/Start_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="105dp"
-        android:textColor="#ff02ff00"
-        android:textSize="30dp"
-        />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Start_Button"
+            android:id="@+id/Start_button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/blank"
+            android:onClick="WelcomeStart"
+            android:textColor="#ff002009" />
+    </LinearLayout>
 
 
     <!--
@@ -48,6 +52,10 @@
     android:background="#33B5E5"
 
     I also resized the text to 30dp to make it easier to read.
+
+    UPDATE:
+    I made the button and text into a true center.
+    I also took out the text ID because it was useless unless if you needed to have the app to change it
     -->
 
 </RelativeLayout>
