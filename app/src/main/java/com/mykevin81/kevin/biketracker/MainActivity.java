@@ -1,47 +1,39 @@
 package com.mykevin81.kevin.biketracker;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+        Button start = (Button)findViewById(R.id.Start_button);
     /**Enter tracking activity when Start button from Welcome page is pressed */
-    public void WelcomeStart(View view){
-        Intent intent = new Intent(this, TrackerActivity.class);
-        startActivity(intent);
-    }
-}
+
+
+        final Context c = this;
+
+
+        start.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                startActivity(new Intent(c, TrackerActivity.class));
+                finish();
+  /**
+   * NOTE FROM crua9
+   * Just compare this page to others when you want to remove the actionbar stuff. I moved the detection of the button within the on create, and allowed it to find the class quicker.
+   * Check the manifest.
+   *
+   * BTW, I didn't know if you wanted to keep this class open. If you do, then take off the finish(). This basically kills this class so it doesn't eat up the users memory and battery.
+   */
+            }});}}
