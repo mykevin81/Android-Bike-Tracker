@@ -15,7 +15,7 @@ public class TrackerActivity extends Activity {
         setContentView(R.layout.activity_tracker);
 
         //always show the current time in this box
-        final Chronometer Current_Time = (Chronometer) findViewById(R.id.time);
+        final Chronometer Current_Time = (Chronometer) findViewById(R.id.timer);
         Current_Time.setBase(SystemClock.elapsedRealtime());
         Current_Time.start();
 

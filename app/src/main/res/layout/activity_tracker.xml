@@ -7,19 +7,29 @@
     tools:context="com.mykevin81.kevin.biketracker.TrackerActivity">
 
     <LinearLayout
+        android:id="@+id/Display_Layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <DigitalClock android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/clock"
+            android:textStyle="bold"
+            android:textSize="50sp"/>
 
         <Chronometer
-            android:id="@+id/time"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/timer"
+            android:layout_gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="40dp"/>
-
-
+            android:textStyle="bold"
+            android:textSize="50sp"/>
 
     </LinearLayout>
+
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.MapFragment"
@@ -31,6 +41,29 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/Display_Layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/map">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button"
+            android:layout_gravity="center_vertical" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button2"
+            android:layout_gravity="center|right" />
+    </LinearLayout>
 
 
 </RelativeLayout>
