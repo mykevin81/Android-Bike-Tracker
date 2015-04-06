@@ -8,6 +8,7 @@
     <string name="Start_Button">Start</string>
     <string name="Stop_Button">Stop</string>
     <string name="Pause_Button">Pause</string>
+    <string name="Resume_Button">Resume</string>
 
     //Action Bar Strings
     <string name="action_settings">Settings</string>
