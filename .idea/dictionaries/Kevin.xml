@@ -2,6 +2,7 @@
   <dictionary name="Kevin">
     <words>
       <w>biketracker</w>
+      <w>pauseable</w>
     </words>
   </dictionary>
 </component>

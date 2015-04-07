@@ -4,7 +4,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="#ff000000">
+    android:background="@drawable/background"
+    android:backgroundTint="#3f3f3f"
+    android:backgroundTintMode="screen">
 
 
     <LinearLayout
@@ -14,7 +16,7 @@
         android:gravity="center">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Welcome_Text"
@@ -22,7 +24,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="105dp"
             android:textColor="#ff02ff00"
-            android:textSize="30dp"/>
+            android:textStyle="bold"
+            android:textSize="50sp"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -32,30 +35,9 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/blank"
-            android:onClick="WelcomeStart"
             android:textColor="#ff002009" />
     </LinearLayout>
 
 
-    <!--
-
-    NOTE FROM crua9
-
-    you may want to change the color of the background. The lime green is pretty bad.
-
-    I'm changing it to a black with green text. I've also changed the button with one I already have.
-    The hex code you had was the following.
-    background
-    android:background="#99CC00"
-
-    button
-    android:background="#33B5E5"
-
-    I also resized the text to 30dp to make it easier to read.
-
-    UPDATE:
-    I made the button and text into a true center.
-    I also took out the text ID because it was useless unless if you needed to have the app to change it
-    -->
 
 </RelativeLayout>
