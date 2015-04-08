@@ -13,6 +13,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        //Main activity
         <activity
             android:name="com.mykevin81.kevin.biketracker.MainActivity"
             android:label="@string/app_name"
@@ -24,20 +26,26 @@
             </intent-filter>
         </activity>
 
+
+        //Tracker Activity
         <activity
             android:name=".TrackerActivity"
             android:label="Tracker"
             android:screenOrientation="portrait">
         </activity>
 
+        //google maps key
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDGArYX8zCxUtXHTI6hhCsH_enKhWg-mck"/>
+            android:value="AIzaSyCdtUWUBvhkOtF72Nx0rezOTScEt3EtKAY"/>
+
+
+
     </application>
 
-    //Specify requirement for OpenGL ES version 2
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true"/>
+
 
 </manifest>
