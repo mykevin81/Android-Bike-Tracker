@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+//TODO change background design
 
 public class MainActivity extends Activity {
 
@@ -18,6 +19,7 @@ public class MainActivity extends Activity {
         Button start = (Button)findViewById(R.id.Start_button);
         /**Enter tracking activity when Start button from Welcome page is pressed */
 
+        //TODO Include login options for Google+ and/or facebook etc
 
         final Context c = this;
 
@@ -26,7 +28,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 startActivity(new Intent(c, TrackerActivity.class));
                 finish();

@@ -14,6 +14,9 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.GoogleMap;
 //import com.google.android.gms.maps.model.LatLng;
 
+//TODO add setting item next to Stop Button
+//TODO wireframe setting menu
+
 
 public class TrackerActivity extends Activity{
 
@@ -46,7 +49,7 @@ public class TrackerActivity extends Activity{
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
 
                 Timer = (Chronometer) findViewById(R.id.timer);
                 Timer.setBase(SystemClock.elapsedRealtime());
@@ -98,6 +101,8 @@ public class TrackerActivity extends Activity{
         Timer.start();
         time = 0;
         isPaused = false;
+
+        //TODO Start tracking real time location on map
     }
 
     private void stopTimer() {
@@ -122,6 +127,8 @@ public class TrackerActivity extends Activity{
         Log.d(TimerTag, "Resume Time value: " + time);
         Timer.start();
         isPaused = false;
+
+        //TODO Start tracking real time location on map
     }
 
     private boolean isPaused() {
@@ -132,6 +139,8 @@ public class TrackerActivity extends Activity{
         mMap.setMyLocationEnabled(true);
         UiSettings mUiSettings = mMap.getUiSettings();
         mUiSettings.setMyLocationButtonEnabled(true);
+
+        //TODO Zoom to current location
 
     }
 
