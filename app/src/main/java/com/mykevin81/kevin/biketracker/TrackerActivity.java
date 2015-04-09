@@ -7,19 +7,16 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-
-//import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-//import com.google.android.gms.maps.model.LatLng;
+
 
 
 //TODO wireframe setting menu
@@ -33,7 +30,6 @@ public class TrackerActivity extends Activity{
     private boolean isPaused = false;
     public long time = 0;
     public long timewhenstopped = 0;
-    String TimerTag;
 
 
     @Override
@@ -107,8 +103,6 @@ public class TrackerActivity extends Activity{
     private void startTimer() {
         Timer.setBase(SystemClock.elapsedRealtime());
         time = Timer.getBase();
-        Log.d(TimerTag, "Start elapse Time value: " + SystemClock.elapsedRealtime());
-        Log.d(TimerTag, "Start Time value: " + time);
         Timer.start();
         isPaused = false;
 
@@ -124,10 +118,6 @@ public class TrackerActivity extends Activity{
 
     private void pauseTimer() {
         timewhenstopped = SystemClock.elapsedRealtime() - time;
-        Log.d(TimerTag, "Pause Time value: " + time);
-        Log.d(TimerTag, "tws Time value: " + timewhenstopped);
-        Log.d(TimerTag, "getBase Time value: " + Timer.getBase());
-        Log.d(TimerTag, "elapse real Time value: " + SystemClock.elapsedRealtime());
         Timer.stop();
         Timer.setBase(SystemClock.elapsedRealtime() - timewhenstopped);
         isPaused = true;
