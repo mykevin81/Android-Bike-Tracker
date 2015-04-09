@@ -12,7 +12,8 @@
     <LinearLayout
         android:id="@+id/Display_Layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/map"
         android:orientation="vertical">
 
         <TextClock
@@ -23,20 +24,29 @@
             android:layout_height="wrap_content"
             android:gravity="center"/>
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+
+
         <Chronometer
             android:id="@+id/timer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/TextClock"
             android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="50sp"
             android:gravity="center" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/timer"
             android:orientation="horizontal">
 
             <TextView
@@ -47,6 +57,8 @@
                 android:text="@string/speed"
                 android:textStyle="bold"
                 android:textSize="50sp"/>
+
+
 
             <TextView
                 android:layout_width="fill_parent"
@@ -59,30 +71,59 @@
 
          </LinearLayout>
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Start_Button"
+                android:id="@+id/start_pause_btn"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Stop_Button"
+                android:id="@+id/Stop_btn"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent">
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:id="@+id/HistoryButton"
+                    android:background="@drawable/ic_action_view_as_list"
+                    android:layout_gravity="center" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:id="@+id/SettingButton"
+                    android:contentDescription="@string/Setting_Button"
+                    android:background="@drawable/ic_action_settings"
+                    android:layout_gravity="center" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/Display_Layout"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/map">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Start_Button"
-            android:id="@+id/start_pause_btn"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Stop_Button"
-            android:id="@+id/Stop_btn"
-            android:layout_gravity="center"/>
-    </LinearLayout>
 
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

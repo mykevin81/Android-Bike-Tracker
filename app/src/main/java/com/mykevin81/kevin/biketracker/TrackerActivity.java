@@ -1,6 +1,10 @@
 package com.mykevin81.kevin.biketracker;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -9,12 +13,15 @@ import android.widget.Button;
 import android.widget.Chronometer;
 
 //import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 //import com.google.android.gms.maps.model.LatLng;
 
-//TODO add setting item next to Stop Button
+
 //TODO wireframe setting menu
 
 
@@ -22,10 +29,10 @@ public class TrackerActivity extends Activity{
 
 
     GoogleMap mMap;
-    //LatLng myLocation;
     public Chronometer Timer;
     private boolean isPaused = false;
-    public long time;
+    public long time = 0;
+    public long timewhenstopped = 0;
     String TimerTag;
 
 
@@ -98,8 +105,11 @@ public class TrackerActivity extends Activity{
 
 
     private void startTimer() {
+        Timer.setBase(SystemClock.elapsedRealtime());
+        time = Timer.getBase();
+        Log.d(TimerTag, "Start elapse Time value: " + SystemClock.elapsedRealtime());
+        Log.d(TimerTag, "Start Time value: " + time);
         Timer.start();
-        time = 0;
         isPaused = false;
 
         //TODO Start tracking real time location on map
@@ -113,18 +123,19 @@ public class TrackerActivity extends Activity{
     }
 
     private void pauseTimer() {
-        time = Timer.getBase() - SystemClock.elapsedRealtime();
+        timewhenstopped = SystemClock.elapsedRealtime() - time;
         Log.d(TimerTag, "Pause Time value: " + time);
-        Log.d(TimerTag, "Elapsed Time value:" + SystemClock.elapsedRealtime());
+        Log.d(TimerTag, "tws Time value: " + timewhenstopped);
+        Log.d(TimerTag, "getBase Time value: " + Timer.getBase());
+        Log.d(TimerTag, "elapse real Time value: " + SystemClock.elapsedRealtime());
         Timer.stop();
-        Timer.setBase(time);
+        Timer.setBase(SystemClock.elapsedRealtime() - timewhenstopped);
         isPaused = true;
     }
 
     private void resumeTimer() {
-        Timer.setBase(SystemClock.elapsedRealtime() + time);
-        time = SystemClock.elapsedRealtime() + time;
-        Log.d(TimerTag, "Resume Time value: " + time);
+        Timer.setBase(SystemClock.elapsedRealtime() - timewhenstopped);
+        time = Timer.getBase();
         Timer.start();
         isPaused = false;
 
@@ -140,8 +151,24 @@ public class TrackerActivity extends Activity{
         UiSettings mUiSettings = mMap.getUiSettings();
         mUiSettings.setMyLocationButtonEnabled(true);
 
-        //TODO Zoom to current location
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
 
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        if (location != null)
+        {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                    .zoom(16)                   // Sets the zoom
+                    .bearing(0)                // Sets the orientation of the camera to north
+                    .tilt(0)                   // Sets the tilt of the camera to 0 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        }
     }
 
 
