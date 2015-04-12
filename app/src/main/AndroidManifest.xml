@@ -19,9 +19,15 @@
             android:name="com.mykevin81.kevin.biketracker.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
+            </activity>
+
+       //Splash screen
+        <activity
+            android:name="com.mykevin81.kevin.biketracker.Splash"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
