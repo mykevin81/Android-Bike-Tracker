@@ -20,8 +20,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Welcome_Text"
-            android:layout_above="@+id/Start_button"
-            android:layout_centerHorizontal="true"
             android:layout_marginBottom="105dp"
             android:textColor="#ff02ff00"
             android:textStyle="bold"
@@ -32,9 +30,6 @@
             android:layout_height="wrap_content"
             android:text="@string/Start_Button"
             android:id="@+id/Start_button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/blank"
             android:textColor="#ff002009" />
     </LinearLayout>
 
