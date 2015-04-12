@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:id="@+id/watchb"
+    android:clickable="true"
+    android:background="#ff000000"
+    >
+
+    <TextClock
+        android:format12Hour="hh:mm aa"
+        android:format24Hour="hh:mm:"
+        android:textSize="50sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#ff00ff0b"
+        />
+
+
+
+</LinearLayout>
+
+    <!--
+
+        I made this in order to allow the user to use a smart watch with this app.
+        I was thinking they can double tap the watch screen to start or stop the watch.
+
+        I added a settings area that will allow the user to change the color of the background and time.
+
+
+    -->
