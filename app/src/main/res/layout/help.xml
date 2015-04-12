@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/button"
+            android:layout_gravity="left"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/blank"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="right">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start"
+                android:id="@+id/button2"
+                android:background="@drawable/blank"
+                android:layout_gravity="right"
+                android:layout_marginRight="12dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="8dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:background="#ff0075ff"
+        android:layout_marginTop="8dp"
+        />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To use this application ..."
+                android:textColor="#ff00ff10"
+                android:background="#33000000" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginTop="8dp"
+                android:background="#ff00ecff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Watch Settings"
+                android:textColor="#ff00ff10"
+                android:background="#33000000"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Watch background color"
+                android:textColor="#ff00ff10"
+                android:background="#33000000"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New ToggleButton"
+                    android:id="@+id/toggleButton"
+                    android:background="#ff000000"
+                    android:textColor="#ffffffff" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New ToggleButton"
+                    android:id="@+id/toggleButton3"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New ToggleButton"
+                    android:id="@+id/toggleButton2"
+                    android:background="#ff0101ff"
+                    android:textColor="#ffffffff" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Watch text color"
+                android:textColor="#ff00ff10"
+                android:background="#33000000"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New ToggleButton"
+                    android:id="@+id/toggleButton"
+                    android:background="#ff000000"
+                    android:textColor="#ffffffff" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New ToggleButton"
+                    android:id="@+id/toggleButton3"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New ToggleButton"
+                    android:id="@+id/toggleButton2"
+                    android:background="#ff00ff10"
+                    android:textColor="#ff00ff0b" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+    <!--
+    There is a few things that needs to be done, but I had to get some sleep.
+    The ID need to be changed, and the java needs to be made.
+
+    Also, I didn't know what you wanted to put in the how to use the app section.
+
+        -->
