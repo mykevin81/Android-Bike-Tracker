@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
-            android:id="@+id/button"
+            android:id="@+id/subit"
             android:layout_gravity="left"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="30dp"
@@ -50,8 +50,9 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView" >
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView"
+        android:background="#7a000000">
 
         <LinearLayout
             android:orientation="vertical"
@@ -74,6 +75,11 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                  />
+
+            <!--
+
+            Just take this comment out whenever the watch interface is working.
+            THe ID, and Java still has to be coded.
 
             <TextView
                 android:layout_width="wrap_content"
@@ -169,6 +175,82 @@
                     android:background="#ff00ff10"
                     android:textColor="#ff00ff0b" />
             </LinearLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginTop="8dp"
+                android:background="#ff00ecff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+            -->
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Settings"
+                android:textColor="#ff00ff10"
+                android:background="#33000000"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:layout_margin="12dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MPH or KM"
+                    android:textColor="#ff00ff10"
+                    android:layout_marginRight="15dp"
+                    />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MPH"
+                    android:id="@+id/speed"
+                    android:background="@drawable/blank"
+                    android:textOff="MPH"
+                    android:textOn="KM" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you want the app to tell you how you're doing?"
+                android:textColor="#ff00ff10"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:layout_margin="12dp"
+                >
+
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tts"
+                    android:background="@drawable/blank"
+                    android:textOff="No"
+                    android:textOn="Yes"
+                    />
+            </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

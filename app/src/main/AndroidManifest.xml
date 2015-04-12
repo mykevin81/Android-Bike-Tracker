@@ -40,6 +40,12 @@
             android:screenOrientation="portrait">
         </activity>
 
+
+        //Settings
+        <activity
+            android:name=".Help" android:label="Tracker" android:screenOrientation="portrait">
+        </activity>
+
         //google maps key
         <meta-data
             android:name="com.google.android.geo.API_KEY"
