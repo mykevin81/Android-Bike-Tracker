@@ -93,7 +93,6 @@
                 android:text="@string/Start_Button"
                 android:id="@+id/start_pause_btn"
                 android:layout_gravity="center"
-                android:background="@drawable/blank"
                 android:layout_marginRight="10dp"
                 />
 
@@ -103,7 +102,6 @@
                 android:text="@string/Stop_Button"
                 android:id="@+id/Stop_btn"
                 android:layout_gravity="center"
-                android:background="@drawable/blank"
                 />
 
             <LinearLayout

@@ -37,19 +37,16 @@
             android:id="@+id/Start_button"
             android:textColor="#ff002009"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="@drawable/blank"
-            />
+            android:textStyle="bold" />
 
         <Button
-            android:layout_width="110dp"
+            android:layout_width="134dp"
             android:layout_height="wrap_content"
             android:text="Settings"
             android:id="@+id/help"
             android:textColor="#ff002009"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:background="@drawable/blank"
             android:layout_marginTop="20dp"
             />
 

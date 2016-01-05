@@ -23,4 +23,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:7.0.0'
+    compile files('libs/antpluginlib_3-5-0.jar')
+    compile files('libs/fit_14.10.jar')
 }
