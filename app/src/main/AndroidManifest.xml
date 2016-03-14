@@ -49,7 +49,7 @@
         //google maps key
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCdtUWUBvhkOtF72Nx0rezOTScEt3EtKAY"/>
+            android:value="AIzaSyAF3OTgGWqo6D3GLjQrirgSOTSOIagJK98"/>
 
 
 
