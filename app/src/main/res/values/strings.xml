@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Bike Tracker</string>
 
+    //Images
+    <string name="logo">logo</string>
+
     //Title Text
     <string name="Welcome_Text">Welcome Biker!</string>
 
