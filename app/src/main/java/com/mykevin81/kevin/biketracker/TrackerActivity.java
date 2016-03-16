@@ -29,7 +29,7 @@ public class TrackerActivity extends Activity{
     public Chronometer Timer;
     private boolean isPaused = false;
     public long time = 0;
-    public long timewhenstopped = 0;
+    public long timeWhenStopped = 0;
 
 
     @Override
@@ -117,14 +117,14 @@ public class TrackerActivity extends Activity{
     }
 
     private void pauseTimer() {
-        timewhenstopped = SystemClock.elapsedRealtime() - time;
+        timeWhenStopped = SystemClock.elapsedRealtime() - time;
         Timer.stop();
-        Timer.setBase(SystemClock.elapsedRealtime() - timewhenstopped);
+        Timer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
         isPaused = true;
     }
 
     private void resumeTimer() {
-        Timer.setBase(SystemClock.elapsedRealtime() - timewhenstopped);
+        Timer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
         time = Timer.getBase();
         Timer.start();
         isPaused = false;
