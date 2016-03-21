@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Button start = (Button)findViewById(R.id.Start_button);
-        Button help = (Button)findViewById(R.id.help);
+        Button help = (Button)findViewById(R.id.Setting_Button);
 
         final Context c = this;
 

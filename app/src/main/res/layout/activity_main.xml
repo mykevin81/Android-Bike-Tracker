@@ -45,7 +45,7 @@
             />
 
         <Button
-            android:id="@+id/angry_btn"
+            android:id="@+id/Setting_Button"
 
             android:text="@string/Setting_Button"
             android:textColor="#FFFFFF"
