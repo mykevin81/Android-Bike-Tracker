@@ -31,29 +31,33 @@
         <Button
             android:id="@+id/Start_button"
 
-            android:text="Start"
+            android:text="@string/Start_Button"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
 
             android:layout_width="270dp"
             android:layout_height="60dp"
-            android:background="@drawable/buttonshape"
+            android:background="@drawable/startbuttonshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
             />
 
-
         <Button
-            android:layout_width="134dp"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:id="@+id/help"
-            android:textColor="#ff002009"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:id="@+id/angry_btn"
+
+            android:text="@string/Setting_Button"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
             android:layout_marginTop="20dp"
+            android:layout_width="213dp"
+            android:layout_height="50dp"
+            android:background="@drawable/settingbuttonshape"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
             />
 
     </LinearLayout>
