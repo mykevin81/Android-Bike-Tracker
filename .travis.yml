@@ -3,6 +3,10 @@ language: android
 before_install:
  - chmod +x gradlew
 
+branches:
+  only:
+    - master
+
 android:
   components:
     # Uncomment the lines below if you want to
@@ -19,3 +23,5 @@ android:
 
     # The SDK version used to compile your project
     - android-21
+
+script: ./gradlew check
