@@ -9,6 +9,10 @@ android:
     # use the latest revision of Android SDK Tools
     # - platform-tools
     # - tools
+    - extra-android-support
+    - extra-google-google_play_services
+    - extra-android-m2repository
+    - extra-google-m2repository
 
     # The BuildTools version used by your project
     - build-tools-21.1.2
