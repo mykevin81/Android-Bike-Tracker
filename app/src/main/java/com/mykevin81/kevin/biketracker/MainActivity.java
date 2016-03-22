@@ -17,17 +17,17 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Button start = (Button)findViewById(R.id.Start_button);
-        Button help = (Button)findViewById(R.id.Setting_Button);
+        Button setting = (Button)findViewById(R.id.Setting_Button);
 
         final Context c = this;
 
 
-        help.setOnClickListener(new View.OnClickListener() {
+        setting.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startActivity(new Intent(c, Help.class));
+                startActivity(new Intent(c, SettingsActivity.class));
                 finish();
             }
         });

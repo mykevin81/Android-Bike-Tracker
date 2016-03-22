@@ -1,63 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mykevin81.kevin.biketracker" >
+    package="com.mykevin81.kevin.biketracker">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         //Main activity
         <activity
-            android:name="com.mykevin81.kevin.biketracker.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            </activity>
 
-       //Splash screen
+        </activity>
+
+        //Splash screen
         <activity
-            android:name="com.mykevin81.kevin.biketracker.Splash"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name">
+            android:name=".Splash"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         //Tracker Activity
         <activity
             android:name=".TrackerActivity"
             android:label="Tracker"
             android:screenOrientation="portrait">
-        </activity>
 
+        </activity>
 
         //Settings
         <activity
-            android:name=".Help" android:label="Tracker" android:screenOrientation="portrait">
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mykevin81.kevin.biketracker.MainActivity" />
         </activity>
 
         //google maps key
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAF3OTgGWqo6D3GLjQrirgSOTSOIagJK98"/>
-
-
-
+            android:value="AIzaSyAF3OTgGWqo6D3GLjQrirgSOTSOIagJK98" />
     </application>
-
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true"/>
-
 
 </manifest>
