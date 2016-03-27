@@ -1,15 +1,22 @@
 package com.mykevin81.kevin.biketracker;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.UiSettings;
@@ -50,11 +57,16 @@ public class TrackerActivity extends Activity{
     public long time = 0;
     public long timeWhenStopped = 0;
 
+    TextView tv_status;
+
     //Ant+ sensor variable
-    AntPlusBikeCadencePcc AntCadence = null;
-    PccReleaseHandle<AntPlusBikeCadencePcc> AntCadenceReleaseHandle = null;
-    AntPlusBikeSpeedDistancePcc AntSpeed = null;
-    PccReleaseHandle<AntPlusBikeSpeedDistancePcc> AntSpeedReleaseHandle = null;
+    AntPlusBikeSpeedDistancePcc bsdPcc = null;
+    PccReleaseHandle<AntPlusBikeSpeedDistancePcc> bsdReleaseHandle = null;
+    AntPlusBikeCadencePcc bcPcc = null;
+    PccReleaseHandle<AntPlusBikeCadencePcc> bcReleaseHandle = null;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +196,100 @@ public class TrackerActivity extends Activity{
 
         }
     }
+
+
+    //======================== ANT+ Functions ===================
+
+    /**
+     * Show the result of the connection between device and sensors
+     *
+     * @param result                Result of the connected sensor
+     * @param resultCode            The result code given by the sensor
+     * @param initialDeviceState    status of the device after connection request
+     */
+    public void onResultReceived(AntPlusBikeSpeedDistancePcc result, RequestAccessResult resultCode, DeviceState initialDeviceState) {
+
+        switch(resultCode) {
+            case SUCCESS:
+                bsdPcc = result;
+                Toast.makeText(TrackerActivity.this, "Successfully Connected: " + result.getDeviceName(), Toast.LENGTH_SHORT).show();
+                tv_status.setText(result.getDeviceName() + ": " + initialDeviceState);
+                subscribeToEvents();
+                break;
+
+            case CHANNEL_NOT_AVAILABLE:
+                Toast.makeText(TrackerActivity.this, "Channel Not Available", Toast.LENGTH_SHORT).show();
+                tv_status.setText("Channel not available!");
+                break;
+
+            case ADAPTER_NOT_DETECTED:
+                Toast.makeText(TrackerActivity.this, "Sensor not found", Toast.LENGTH_SHORT).show();
+                tv_status.setText("Sensor not found");
+                break;
+
+            case BAD_PARAMS:
+                Toast.makeText(TrackerActivity.this, "Bad request parameters", Toast.LENGTH_SHORT).show();
+                tv_status.setText("Bad request parameters");
+                break;
+
+            case OTHER_FAILURE:
+                Toast.makeText(TrackerActivity.this, "Unknown failure. check logcat for details.", Toast.LENGTH_SHORT).show();
+                tv_status.setText("OTHER FAILURE");
+                break;
+
+            case DEPENDENCY_NOT_INSTALLED:
+                Toast.makeText(TrackerActivity.this, "Dependency is not installed!", Toast.LENGTH_SHORT).show();
+
+                //Alert user to install ANT+ app dependencies before using this app
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TrackerActivity.this);
+                alertDialogBuilder.setTitle("Missing Dependency");
+                alertDialogBuilder.setMessage("The required service: \n"
+                        + AntPlusBikeSpeedDistancePcc.getMissingDependencyName()
+                        + "\n was not found. You need to install the ANT+ Plugins service or you may need to update your existing version if you already have it. Do you want to launch the Play Store to get it?");
+                alertDialogBuilder.setPositiveButton("Go to Store", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent startStore = null;
+                        startStore = new Intent(Intent.ACTION_VIEW, Uri
+                                .parse("market://details?id="
+                                        + AntPlusBikeSpeedDistancePcc
+                                        .getMissingDependencyPackageName()));
+                        startStore.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        TrackerActivity.this.startActivity(startStore);
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                final AlertDialog waitDialog = alertDialogBuilder.create();
+                waitDialog.show();
+                break;
+
+            case USER_CANCELLED:
+                Toast.makeText(TrackerActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
+                tv_status.setText("Canceled");
+                break;
+
+            case UNRECOGNIZED:
+                Toast.makeText(TrackerActivity.this, "Failed: UNRECOGNIZED. PluginLib Upgrade Required?", Toast.LENGTH_SHORT).show();
+                tv_status.setText("Unrecognized, update may be required");
+                break;
+
+            default:
+                Toast.makeText(TrackerActivity.this, "Unrecognized result: " + resultCode, Toast.LENGTH_SHORT).show();
+                tv_status.setText("Error code: " + resultCode);
+                break;
+        }
+    }
+
+    public void subscribeToEvents() {
+        //TODO create subscribe to the events
+    }
+
 
 
 }
