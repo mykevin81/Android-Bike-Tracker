@@ -234,7 +234,7 @@ public class TrackerActivity extends Activity{
      * @param resultCode            The result code given by the sensor
      * @param initialDeviceState    status of the device after connection request
      */
-    /*
+
     public void onResultReceived(AntPlusBikeSpeedDistancePcc result, RequestAccessResult resultCode, DeviceState initialDeviceState) {
 
         switch(resultCode) {
@@ -313,8 +313,11 @@ public class TrackerActivity extends Activity{
                 break;
         }
     }
-*/
-    /*
+
+    /**
+     * Subscribe to the events and set the text to the view on screen
+     */
+
     public void subscribeToEvents() {
 
         //Speed Receiver
@@ -327,7 +330,8 @@ public class TrackerActivity extends Activity{
                     @Override
                     public void run() {
 
-                        tv_speed.setText(String.valueOf(calculatedSpeed));
+                        //tv_speed.setText(String.valueOf(calculatedSpeed));
+                        tv_speed.setText("RUN!");//TEST
                     }
                 });
             }
@@ -435,15 +439,12 @@ public class TrackerActivity extends Activity{
                     );
                 }
             });
-        }
-        else {
+        }//else here
 
-            // Subscribe to the events available in the pure cadence profile
 
-        }
     }
 
-*/
+
 
 }
 
