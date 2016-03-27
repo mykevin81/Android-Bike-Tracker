@@ -17,7 +17,26 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
-
+import com.dsi.ant.plugins.antplus.pcc.AntPlusBikeCadencePcc;
+import com.dsi.ant.plugins.antplus.pcc.AntPlusBikeCadencePcc.ICalculatedCadenceReceiver;
+import com.dsi.ant.plugins.antplus.pcc.AntPlusBikeSpeedDistancePcc;
+import com.dsi.ant.plugins.antplus.pcc.AntPlusBikeSpeedDistancePcc.CalculatedAccumulatedDistanceReceiver;
+import com.dsi.ant.plugins.antplus.pcc.AntPlusBikeSpeedDistancePcc.CalculatedSpeedReceiver;
+import com.dsi.ant.plugins.antplus.pcc.AntPlusBikeSpeedDistancePcc.IMotionAndSpeedDataReceiver;
+import com.dsi.ant.plugins.antplus.pcc.AntPlusBikeSpeedDistancePcc.IRawSpeedAndDistanceDataReceiver;
+import com.dsi.ant.plugins.antplus.pcc.defines.BatteryStatus;
+import com.dsi.ant.plugins.antplus.pcc.defines.DeviceState;
+import com.dsi.ant.plugins.antplus.pcc.defines.DeviceType;
+import com.dsi.ant.plugins.antplus.pcc.defines.EventFlag;
+import com.dsi.ant.plugins.antplus.pcc.defines.RequestAccessResult;
+import com.dsi.ant.plugins.antplus.pccbase.AntPluginPcc.IDeviceStateChangeReceiver;
+import com.dsi.ant.plugins.antplus.pccbase.AntPluginPcc.IPluginAccessResultReceiver;
+import com.dsi.ant.plugins.antplus.pccbase.AntPlusBikeSpdCadCommonPcc.IBatteryStatusReceiver;
+import com.dsi.ant.plugins.antplus.pccbase.AntPlusLegacyCommonPcc.ICumulativeOperatingTimeReceiver;
+import com.dsi.ant.plugins.antplus.pccbase.AntPlusLegacyCommonPcc.IManufacturerAndSerialReceiver;
+import com.dsi.ant.plugins.antplus.pccbase.AntPlusLegacyCommonPcc.IVersionAndModelReceiver;
+import com.dsi.ant.plugins.antplus.pccbase.MultiDeviceSearch.MultiDeviceSearchResult;
+import com.dsi.ant.plugins.antplus.pccbase.PccReleaseHandle;
 
 //TODO wireframe setting menu
 
@@ -31,6 +50,11 @@ public class TrackerActivity extends Activity{
     public long time = 0;
     public long timeWhenStopped = 0;
 
+    //Ant+ sensor variable
+    AntPlusBikeCadencePcc AntCadence = null;
+    PccReleaseHandle<AntPlusBikeCadencePcc> AntCadenceReleaseHandle = null;
+    AntPlusBikeSpeedDistancePcc AntSpeed = null;
+    PccReleaseHandle<AntPlusBikeSpeedDistancePcc> AntSpeedReleaseHandle = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +113,7 @@ public class TrackerActivity extends Activity{
             public void onClick(View v) {
                 //Stop the timer
                 stopTimer();
-                //set start_puase button text back to start
+                //set start_pause button text back to start
                 start_pause.setText(Start_String);
             }
 
