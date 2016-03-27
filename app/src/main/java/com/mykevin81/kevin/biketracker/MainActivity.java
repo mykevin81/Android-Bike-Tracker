@@ -44,21 +44,5 @@ public class MainActivity extends Activity {
             }
         });}}
 
-/**Enter tracking activity when Start button from Welcome page is pressed */
 
-
-/**
  //TODO Include login options for Google+ and/or facebook etc
- I wasn't sure if you wanted a social button based on the to do. If so, the code below is was is needed.
- Just make sure you change the background of the button and the link as needed.
-
- b1.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View v) {
-Intent yt = new Intent(Intent.ACTION_VIEW);
-yt.setData(Uri.parse("https://www.youtube.com/playlist?list=PLioOFeHwQV5zxRaDpN-hFzvCqrWnSnADt"));
-startActivity(yt);
-}
-});
-
- */
