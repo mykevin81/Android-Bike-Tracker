@@ -45,6 +45,9 @@ import com.dsi.ant.plugins.antplus.pccbase.AntPlusLegacyCommonPcc.IVersionAndMod
 import com.dsi.ant.plugins.antplus.pccbase.MultiDeviceSearch.MultiDeviceSearchResult;
 import com.dsi.ant.plugins.antplus.pccbase.PccReleaseHandle;
 
+import java.math.BigDecimal;
+import java.util.EnumSet;
+
 //TODO wireframe setting menu
 
 
@@ -58,12 +61,15 @@ public class TrackerActivity extends Activity{
     public long timeWhenStopped = 0;
 
     TextView tv_status;
+    TextView tv_speed;
 
     //Ant+ sensor variable
     AntPlusBikeSpeedDistancePcc bsdPcc = null;
     PccReleaseHandle<AntPlusBikeSpeedDistancePcc> bsdReleaseHandle = null;
     AntPlusBikeCadencePcc bcPcc = null;
     PccReleaseHandle<AntPlusBikeCadencePcc> bcReleaseHandle = null;
+
+    BigDecimal wheelSize = new BigDecimal(2.095);
 
 
 
@@ -73,12 +79,14 @@ public class TrackerActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracker);
 
+        tv_speed = (TextView) findViewById(R.id.tv_speed);
+
         final Button Stop_button = (Button) findViewById(R.id.Stop_btn);
         final Button start_pause = (Button) findViewById(R.id.start_pause_btn);
+
         final String Pause_String = getResources().getString(R.string.Pause_Button);
         final String Start_String = getResources().getString(R.string.Start_Button);
         final String Resume_String = getResources().getString(R.string.Resume_Button);
-
         //initialize map stuff
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setMapUI();
@@ -135,7 +143,9 @@ public class TrackerActivity extends Activity{
     }
 
 
-
+    /**
+     *  Begin the timer
+     */
     private void startTimer() {
         Timer.setBase(SystemClock.elapsedRealtime());
         time = Timer.getBase();
@@ -145,6 +155,9 @@ public class TrackerActivity extends Activity{
         //TODO Start tracking real time location on map
     }
 
+    /**
+     *  Stop the timer
+     */
     private void stopTimer() {
         Timer.stop();
         Timer.setBase(SystemClock.elapsedRealtime());
@@ -152,6 +165,9 @@ public class TrackerActivity extends Activity{
         isPaused = false;
     }
 
+    /**
+     *  Pause the timer
+     */
     private void pauseTimer() {
         timeWhenStopped = SystemClock.elapsedRealtime() - time;
         Timer.stop();
@@ -159,6 +175,9 @@ public class TrackerActivity extends Activity{
         isPaused = true;
     }
 
+    /**
+     *  Resume the timer
+     */
     private void resumeTimer() {
         Timer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
         time = Timer.getBase();
@@ -168,10 +187,18 @@ public class TrackerActivity extends Activity{
         //TODO Start tracking real time location on map
     }
 
+    /**
+     *  Check if the timer is paused
+     *
+     * @return isPaused boolean value based on the timer.
+     */
     private boolean isPaused() {
         return isPaused;
     }
 
+    /**
+     *  Initialize map view information
+     */
     private void setMapUI(){
         mMap.setMyLocationEnabled(true);
         UiSettings mUiSettings = mMap.getUiSettings();
@@ -207,6 +234,7 @@ public class TrackerActivity extends Activity{
      * @param resultCode            The result code given by the sensor
      * @param initialDeviceState    status of the device after connection request
      */
+
     public void onResultReceived(AntPlusBikeSpeedDistancePcc result, RequestAccessResult resultCode, DeviceState initialDeviceState) {
 
         switch(resultCode) {
@@ -286,8 +314,134 @@ public class TrackerActivity extends Activity{
         }
     }
 
+    /**
+     * Subscribe to the events and set the text to the view on screen
+     */
+
     public void subscribeToEvents() {
-        //TODO create subscribe to the events
+
+        //Speed Receiver
+        //TODO add options to change wheel size
+        bsdPcc.subscribeCalculatedSpeedEvent(new CalculatedSpeedReceiver(wheelSize) {
+            @Override
+            public void onNewCalculatedSpeed(long l, EnumSet<EventFlag> enumSet, final BigDecimal calculatedSpeed) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        //tv_speed.setText(String.valueOf(calculatedSpeed));
+                        tv_speed.setText("RUN!");//TEST
+                    }
+                });
+            }
+        });
+
+        //Accumulated Distance Receiver
+        bsdPcc.subscribeCalculatedAccumulatedDistanceEvent(new CalculatedAccumulatedDistanceReceiver(wheelSize) {
+
+            @Override
+            public void onNewCalculatedAccumulatedDistance(long l, EnumSet<EventFlag> enumSet, final BigDecimal calculatedAccumulatedDistance) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //TODO connect to distance when there is a text view
+                    }
+                });
+            }
+        });
+
+        //Raw Speed and Distance Receiver
+        bsdPcc.subscribeRawSpeedAndDistanceDataEvent(new IRawSpeedAndDistanceDataReceiver() {
+            @Override
+            public void onNewRawSpeedAndDistanceData(long l, EnumSet<EventFlag> enumSet, final BigDecimal timestampOfLastEvent, final long cumulativeRevolutions) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //TODO do something....
+                    }
+                });
+            }
+        });
+
+        //Speed and cadence Combined sensor receiver
+        if (bsdPcc.isSpeedAndCadenceCombinedSensor()) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    bcReleaseHandle = AntPlusBikeCadencePcc.requestAccess(
+                            TrackerActivity.this,
+                            bsdPcc.getAntDeviceNumber(), 0, true,
+                            new IPluginAccessResultReceiver<AntPlusBikeCadencePcc>() {
+                                @Override
+                                public void onResultReceived(AntPlusBikeCadencePcc result, RequestAccessResult resultCode, DeviceState initialDeviceStateCode) {
+
+                                    switch (resultCode) {
+                                        case SUCCESS:
+                                            bcPcc = result;
+                                            bcPcc.subscribeCalculatedCadenceEvent(new ICalculatedCadenceReceiver() {
+                                                @Override
+                                                public void onNewCalculatedCadence(long estTimestamp, EnumSet<EventFlag> eventFlag, final BigDecimal calculatedCadence) {
+
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            //tv_calculatedCadence.setText(String.valueOf(calculatedCadence));
+                                                            //TODO connect to cadence when ready
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                            break;
+
+                                        case CHANNEL_NOT_AVAILABLE:
+                                            //Channel not available
+                                            break;
+                                        case BAD_PARAMS:
+                                            //bad params
+                                            break;
+                                        case OTHER_FAILURE:
+                                            //other failure
+                                            break;
+                                        case DEPENDENCY_NOT_INSTALLED:
+                                            //dependencies not installed
+                                            break;
+                                        default:
+                                            //unknown error
+                                            break;
+                                    }
+                                }
+                            },
+                            new IDeviceStateChangeReceiver() {
+                                @Override
+                                public void onDeviceStateChange(final DeviceState newDeviceState) {
+
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            if(newDeviceState != DeviceState.TRACKING) {
+                                                //tv_calculatedCadence.setText(newDeviceState.toString());
+                                                //TODO connect to cadence when ready
+                                            }
+
+                                            if(newDeviceState == DeviceState.DEAD) {
+                                                bcPcc = null;
+                                            }
+
+                                        }
+                                    });
+                                }
+                            }
+                    );
+                }
+            });
+        }//else here
+
+
     }
 
 

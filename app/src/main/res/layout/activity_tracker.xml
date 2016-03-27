@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
+                android:id="@+id/tv_speed"
                 android:text="@string/speed"
                 android:textStyle="bold"
                 android:textSize="50sp"/>
