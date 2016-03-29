@@ -20,7 +20,7 @@ public class Splash extends Activity {
                     /**
                      * change the sleep time for how long you want the splash image to stay up.
                      */
-                    sleep(2000);
+                    sleep(1000);
 
                 }catch (InterruptedException e){
                     e.printStackTrace();
