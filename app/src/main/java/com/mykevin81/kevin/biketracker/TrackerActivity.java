@@ -142,6 +142,16 @@ public class TrackerActivity extends Activity{
 
     }
 
+    @Override
+    protected void onDestroy() {
+        bsdReleaseHandle.close();
+        if(bcReleaseHandle != null) {
+            bcReleaseHandle.close();
+        }
+        super.onDestroy();
+    }
+
+
 
     /**
      *  Begin the timer
@@ -423,12 +433,12 @@ public class TrackerActivity extends Activity{
                                         @Override
                                         public void run() {
 
-                                            if(newDeviceState != DeviceState.TRACKING) {
+                                            if (newDeviceState != DeviceState.TRACKING) {
                                                 //tv_calculatedCadence.setText(newDeviceState.toString());
                                                 //TODO connect to cadence when ready
                                             }
 
-                                            if(newDeviceState == DeviceState.DEAD) {
+                                            if (newDeviceState == DeviceState.DEAD) {
                                                 bcPcc = null;
                                             }
 
@@ -443,6 +453,18 @@ public class TrackerActivity extends Activity{
 
 
     }
+
+    private void resetPcc() {
+
+        if(bsdReleaseHandle != null) {
+            bsdReleaseHandle.close();
+        }
+
+        if(bcReleaseHandle != null) {
+            bcReleaseHandle.close();
+        }
+    }
+
 
 
 
