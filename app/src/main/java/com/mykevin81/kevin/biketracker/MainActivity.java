@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
         final Context c = this;
 
 
+
         setting.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -42,7 +43,9 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(c, TrackerActivity.class));
                 finish();
             }
-        });}}
+        });
+    }
+}
 
 
  //TODO Include login options for Google+ and/or facebook etc

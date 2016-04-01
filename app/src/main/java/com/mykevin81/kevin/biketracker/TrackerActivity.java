@@ -17,6 +17,7 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dsi.ant.plugins.antplus.pccbase.AntPluginPcc;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.UiSettings;
@@ -87,6 +88,12 @@ public class TrackerActivity extends Activity{
         final String Pause_String = getResources().getString(R.string.Pause_Button);
         final String Start_String = getResources().getString(R.string.Start_Button);
         final String Resume_String = getResources().getString(R.string.Resume_Button);
+
+        //startAntPlugin();
+        resetPcc();
+        //subscribeToEvents();
+
+
         //initialize map stuff
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         setMapUI();
@@ -96,7 +103,6 @@ public class TrackerActivity extends Activity{
 
             @Override
             public void onClick(View v) {
-
 
                 Timer = (Chronometer) findViewById(R.id.timer);
                 Timer.setBase(SystemClock.elapsedRealtime());
@@ -138,6 +144,7 @@ public class TrackerActivity extends Activity{
             }
 
         });
+
 
 
     }
@@ -238,96 +245,135 @@ public class TrackerActivity extends Activity{
     //======================== ANT+ Functions ===================
 
     /**
-     * Show the result of the connection between device and sensors
-     *
-     * @param result                Result of the connected sensor
-     * @param resultCode            The result code given by the sensor
-     * @param initialDeviceState    status of the device after connection request
+     * reset the connection if there is an old connection
      */
+    private void resetPcc() {
 
-    public void onResultReceived(AntPlusBikeSpeedDistancePcc result, RequestAccessResult resultCode, DeviceState initialDeviceState) {
-
-        switch(resultCode) {
-            case SUCCESS:
-                bsdPcc = result;
-                Toast.makeText(TrackerActivity.this, "Successfully Connected: " + result.getDeviceName(), Toast.LENGTH_SHORT).show();
-                tv_status.setText(result.getDeviceName() + ": " + initialDeviceState);
-                subscribeToEvents();
-                break;
-
-            case CHANNEL_NOT_AVAILABLE:
-                Toast.makeText(TrackerActivity.this, "Channel Not Available", Toast.LENGTH_SHORT).show();
-                tv_status.setText("Channel not available!");
-                break;
-
-            case ADAPTER_NOT_DETECTED:
-                Toast.makeText(TrackerActivity.this, "Sensor not found", Toast.LENGTH_SHORT).show();
-                tv_status.setText("Sensor not found");
-                break;
-
-            case BAD_PARAMS:
-                Toast.makeText(TrackerActivity.this, "Bad request parameters", Toast.LENGTH_SHORT).show();
-                tv_status.setText("Bad request parameters");
-                break;
-
-            case OTHER_FAILURE:
-                Toast.makeText(TrackerActivity.this, "Unknown failure. check logcat for details.", Toast.LENGTH_SHORT).show();
-                tv_status.setText("OTHER FAILURE");
-                break;
-
-            case DEPENDENCY_NOT_INSTALLED:
-                Toast.makeText(TrackerActivity.this, "Dependency is not installed!", Toast.LENGTH_SHORT).show();
-
-                //Alert user to install ANT+ app dependencies before using this app
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TrackerActivity.this);
-                alertDialogBuilder.setTitle("Missing Dependency");
-                alertDialogBuilder.setMessage("The required service: \n"
-                        + AntPlusBikeSpeedDistancePcc.getMissingDependencyName()
-                        + "\n was not found. You need to install the ANT+ Plugins service or you may need to update your existing version if you already have it. Do you want to launch the Play Store to get it?");
-                alertDialogBuilder.setPositiveButton("Go to Store", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent startStore = null;
-                        startStore = new Intent(Intent.ACTION_VIEW, Uri
-                                .parse("market://details?id="
-                                        + AntPlusBikeSpeedDistancePcc
-                                        .getMissingDependencyPackageName()));
-                        startStore.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                        TrackerActivity.this.startActivity(startStore);
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                final AlertDialog waitDialog = alertDialogBuilder.create();
-                waitDialog.show();
-                break;
-
-            case USER_CANCELLED:
-                Toast.makeText(TrackerActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
-                tv_status.setText("Canceled");
-                break;
-
-            case UNRECOGNIZED:
-                Toast.makeText(TrackerActivity.this, "Failed: UNRECOGNIZED. PluginLib Upgrade Required?", Toast.LENGTH_SHORT).show();
-                tv_status.setText("Unrecognized, update may be required");
-                break;
-
-            default:
-                Toast.makeText(TrackerActivity.this, "Unrecognized result: " + resultCode, Toast.LENGTH_SHORT).show();
-                tv_status.setText("Error code: " + resultCode);
-                break;
+        if(bsdReleaseHandle != null) {
+            bsdReleaseHandle.close();
         }
+
+        if(bcReleaseHandle != null) {
+            bcReleaseHandle.close();
+        }
+
+        bsdReleaseHandle = AntPlusBikeSpeedDistancePcc.requestAccess(this, this,
+                mResultReceiver, mDeviceStateChangeReceiver);
+
+    }
+
+    IPluginAccessResultReceiver<AntPlusBikeSpeedDistancePcc> mResultReceiver = new IPluginAccessResultReceiver<AntPlusBikeSpeedDistancePcc>() {
+        // Handle the result, connecting to events on success or reporting
+        // failure to user.
+        @Override
+        public void onResultReceived(AntPlusBikeSpeedDistancePcc result, RequestAccessResult resultCode, DeviceState initialDeviceState) {
+
+            switch (resultCode) {
+                case SUCCESS:
+                    bsdPcc = result;
+                    Toast.makeText(TrackerActivity.this, "Successfully Connected: " + result.getDeviceName(), Toast.LENGTH_SHORT).show();
+                    tv_status.setText(result.getDeviceName() + ": " + initialDeviceState);
+                    subscribeToEvents();
+                    break;
+
+                case CHANNEL_NOT_AVAILABLE:
+                    Toast.makeText(TrackerActivity.this, "Channel Not Available", Toast.LENGTH_SHORT).show();
+                    tv_status.setText("Channel not available!");
+                    break;
+
+                case ADAPTER_NOT_DETECTED:
+                    Toast.makeText(TrackerActivity.this, "Sensor not found", Toast.LENGTH_SHORT).show();
+                    tv_status.setText("Sensor not found");
+                    break;
+
+                case BAD_PARAMS:
+                    Toast.makeText(TrackerActivity.this, "Bad request parameters", Toast.LENGTH_SHORT).show();
+                    tv_status.setText("Bad request parameters");
+                    break;
+
+                case OTHER_FAILURE:
+                    Toast.makeText(TrackerActivity.this, "Unknown failure. check logcat for details.", Toast.LENGTH_SHORT).show();
+                    tv_status.setText("OTHER FAILURE");
+                    break;
+
+                case DEPENDENCY_NOT_INSTALLED:
+                    Toast.makeText(TrackerActivity.this, "Dependency is not installed!", Toast.LENGTH_SHORT).show();
+
+                    //Alert user to install ANT+ app dependencies before using this app
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TrackerActivity.this);
+                    alertDialogBuilder.setTitle("Missing Dependency");
+                    alertDialogBuilder.setMessage("The required service: \n"
+                            + AntPlusBikeSpeedDistancePcc.getMissingDependencyName()
+                            + "\n was not found. You need to install the ANT+ Plugins service or you may need to update your existing version if you already have it. Do you want to launch the Play Store to get it?");
+                    alertDialogBuilder.setPositiveButton("Go to Store", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent startStore = null;
+                            startStore = new Intent(Intent.ACTION_VIEW, Uri
+                                    .parse("market://details?id="
+                                            + AntPlusBikeSpeedDistancePcc
+                                            .getMissingDependencyPackageName()));
+                            startStore.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                            TrackerActivity.this.startActivity(startStore);
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    final AlertDialog waitDialog = alertDialogBuilder.create();
+                    waitDialog.show();
+                    break;
+
+                case USER_CANCELLED:
+                    Toast.makeText(TrackerActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
+                    tv_status.setText("Canceled");
+                    break;
+
+                case UNRECOGNIZED:
+                    Toast.makeText(TrackerActivity.this, "Failed: UNRECOGNIZED. PluginLib Upgrade Required?", Toast.LENGTH_SHORT).show();
+                    tv_status.setText("Unrecognized, update may be required");
+                    break;
+
+                default:
+                    Toast.makeText(TrackerActivity.this, "Unrecognized result: " + resultCode, Toast.LENGTH_SHORT).show();
+                    tv_status.setText("Error code: " + resultCode);
+                    break;
+            }
+        }
+    };
+
+    IDeviceStateChangeReceiver mDeviceStateChangeReceiver = new IDeviceStateChangeReceiver()
+    {
+        @Override
+        public void onDeviceStateChange(final DeviceState newDeviceState)
+        {
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    tv_status.setText(bsdPcc.getDeviceName() + ": " + newDeviceState);
+                    if (newDeviceState == DeviceState.DEAD)
+                        bsdPcc = null;
+                }
+            });
+        }
+    };
+
+    /**
+     *  Start the Ant+ Plugin manager when called.
+     */
+    protected void startAntPlugin() {
+        AntPluginPcc.startPluginManagerActivity(this);
     }
 
     /**
      * Subscribe to the events and set the text to the view on screen
      */
-
     public void subscribeToEvents() {
 
         //Speed Receiver
@@ -454,16 +500,7 @@ public class TrackerActivity extends Activity{
 
     }
 
-    private void resetPcc() {
 
-        if(bsdReleaseHandle != null) {
-            bsdReleaseHandle.close();
-        }
-
-        if(bcReleaseHandle != null) {
-            bcReleaseHandle.close();
-        }
-    }
 
 
 
