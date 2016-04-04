@@ -20,7 +20,9 @@ The two primary for ant+ sensor is bike cadence and speed.
 ## ANT+ SDK
 This application relies heavily on Ant+ SDK. It does take a while to understand how ANT+ sensors talk to android devices.
 Here is the link to their developer web page.
+
 <https://www.thisisant.com/developer/>
 
 If you have any Ant+ development questions, you can go to their forum.
+
 <https://www.thisisant.com/forum/>
