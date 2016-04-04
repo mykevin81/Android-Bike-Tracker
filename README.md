@@ -26,3 +26,14 @@ Here is the link to their developer web page.
 If you have any Ant+ development questions, you can go to their forum.
 
 <https://www.thisisant.com/forum/>
+
+## Planned Features
+This is a list of planned feature.
+
+- Bike speed data from Ant+ sensor
+- Bike cadence data from Ant+ sensor
+- Bike speed data from location if Ant+ sensor is not present
+- hide maps when user is on the move
+- database to store passed bike ride
+- add Facebook and Google login feature
+- export ride data to Strava and other major service
