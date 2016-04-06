@@ -19,8 +19,6 @@ public class MainActivity extends Activity {
         Button start = (Button)findViewById(R.id.Start_button);
         Button setting = (Button)findViewById(R.id.Setting_Button);
 
-        final Context c = this;
-
 
 
         setting.setOnClickListener(new View.OnClickListener() {
@@ -28,7 +26,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startActivity(new Intent(c, SettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 finish();
             }
         });
@@ -40,7 +38,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startActivity(new Intent(c, TrackerActivity.class));
+                startActivity(new Intent(MainActivity.this, TrackerActivity.class));
                 finish();
             }
         });
