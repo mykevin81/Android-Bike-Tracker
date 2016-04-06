@@ -64,6 +64,7 @@ public class TrackerActivity extends Activity {
 
     TextView tv_status;
     TextView tv_speed;
+    TextView tv_cadence;
 
     //Ant+ sensor variable
     AntPlusBikeSpeedDistancePcc bsdPcc = null;
@@ -80,6 +81,7 @@ public class TrackerActivity extends Activity {
         setContentView(R.layout.activity_tracker);
 
         tv_speed = (TextView) findViewById(R.id.tv_speed);
+        tv_cadence = (TextView) findViewById(R.id.tv_cadence);
 
         final Button Stop_button = (Button) findViewById(R.id.Stop_btn);
         final Button start_pause = (Button) findViewById(R.id.start_pause_btn);
@@ -436,8 +438,8 @@ public class TrackerActivity extends Activity {
                                                     runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            //tv_calculatedCadence.setText(String.valueOf(calculatedCadence));
-                                                            //TODO connect to cadence when ready
+                                                            //tv_cadence.setText(String.valueOf(calculatedCadence));
+                                                            tv_cadence.setText("ROLL!");
                                                         }
                                                     });
                                                 }
@@ -471,8 +473,8 @@ public class TrackerActivity extends Activity {
                                         public void run() {
 
                                             if (newDeviceState != DeviceState.TRACKING) {
-                                                //tv_calculatedCadence.setText(newDeviceState.toString());
-                                                //TODO connect to cadence when ready
+                                                //tv_cadence.setText(newDeviceState.toString());
+                                                tv_cadence.setText("newRoll");
                                             }
 
                                             if (newDeviceState == DeviceState.DEAD) {
