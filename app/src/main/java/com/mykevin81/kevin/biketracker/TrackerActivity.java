@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -52,7 +53,7 @@ import java.util.EnumSet;
 //TODO wireframe setting menu
 
 
-public class TrackerActivity extends Activity{
+public class TrackerActivity extends Activity {
 
 
     GoogleMap mMap;
@@ -73,8 +74,6 @@ public class TrackerActivity extends Activity{
     BigDecimal wheelSize = new BigDecimal(2.095);
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,11 +87,6 @@ public class TrackerActivity extends Activity{
         final String Pause_String = getResources().getString(R.string.Pause_Button);
         final String Start_String = getResources().getString(R.string.Start_Button);
         final String Resume_String = getResources().getString(R.string.Resume_Button);
-
-        //startAntPlugin();
-        resetPcc();
-        //subscribeToEvents();
-
 
         //initialize map stuff
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -115,7 +109,7 @@ public class TrackerActivity extends Activity{
                     //Start the timer
                     startTimer();
 
-                } else if(!isPaused() && start_pause.getText() == Pause_String) {
+                } else if (!isPaused() && start_pause.getText() == Pause_String) {
 
                     //change pause button to resume
                     start_pause.setText(Resume_String);
@@ -126,10 +120,7 @@ public class TrackerActivity extends Activity{
                     start_pause.setText(Pause_String);
                     resumeTimer();
                 }
-
             }
-
-
         });
 
         //Stop Button Action
@@ -142,26 +133,25 @@ public class TrackerActivity extends Activity{
                 //set start_pause button text back to start
                 start_pause.setText(Start_String);
             }
-
         });
 
+        Toast.makeText(TrackerActivity.this, "Finish and starting resetPcc()", Toast.LENGTH_LONG).show();
 
-
+        resetPcc();
     }
 
     @Override
     protected void onDestroy() {
         bsdReleaseHandle.close();
-        if(bcReleaseHandle != null) {
+        if (bcReleaseHandle != null) {
             bcReleaseHandle.close();
         }
         super.onDestroy();
     }
 
 
-
     /**
-     *  Begin the timer
+     * Begin the timer
      */
     private void startTimer() {
         Timer.setBase(SystemClock.elapsedRealtime());
@@ -173,7 +163,7 @@ public class TrackerActivity extends Activity{
     }
 
     /**
-     *  Stop the timer
+     * Stop the timer
      */
     private void stopTimer() {
         Timer.stop();
@@ -183,7 +173,7 @@ public class TrackerActivity extends Activity{
     }
 
     /**
-     *  Pause the timer
+     * Pause the timer
      */
     private void pauseTimer() {
         timeWhenStopped = SystemClock.elapsedRealtime() - time;
@@ -193,7 +183,7 @@ public class TrackerActivity extends Activity{
     }
 
     /**
-     *  Resume the timer
+     * Resume the timer
      */
     private void resumeTimer() {
         Timer.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
@@ -205,7 +195,7 @@ public class TrackerActivity extends Activity{
     }
 
     /**
-     *  Check if the timer is paused
+     * Check if the timer is paused
      *
      * @return isPaused boolean value based on the timer.
      */
@@ -214,9 +204,9 @@ public class TrackerActivity extends Activity{
     }
 
     /**
-     *  Initialize map view information
+     * Initialize map view information
      */
-    private void setMapUI(){
+    private void setMapUI() {
         mMap.setMyLocationEnabled(true);
         UiSettings mUiSettings = mMap.getUiSettings();
         mUiSettings.setMyLocationButtonEnabled(true);
@@ -225,8 +215,7 @@ public class TrackerActivity extends Activity{
         Criteria criteria = new Criteria();
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if (location != null)
-        {
+        if (location != null) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
@@ -249,13 +238,14 @@ public class TrackerActivity extends Activity{
      */
     private void resetPcc() {
 
-        if(bsdReleaseHandle != null) {
+        if (bsdReleaseHandle != null) {
             bsdReleaseHandle.close();
         }
 
-        if(bcReleaseHandle != null) {
+        if (bcReleaseHandle != null) {
             bcReleaseHandle.close();
         }
+
 
         bsdReleaseHandle = AntPlusBikeSpeedDistancePcc.requestAccess(this, this,
                 mResultReceiver, mDeviceStateChangeReceiver);
@@ -265,35 +255,38 @@ public class TrackerActivity extends Activity{
     IPluginAccessResultReceiver<AntPlusBikeSpeedDistancePcc> mResultReceiver = new IPluginAccessResultReceiver<AntPlusBikeSpeedDistancePcc>() {
         // Handle the result, connecting to events on success or reporting
         // failure to user.
+
         @Override
         public void onResultReceived(AntPlusBikeSpeedDistancePcc result, RequestAccessResult resultCode, DeviceState initialDeviceState) {
+
+            Log.d("ANT+", "going in onResultReceived");
 
             switch (resultCode) {
                 case SUCCESS:
                     bsdPcc = result;
                     Toast.makeText(TrackerActivity.this, "Successfully Connected: " + result.getDeviceName(), Toast.LENGTH_SHORT).show();
-                    tv_status.setText(result.getDeviceName() + ": " + initialDeviceState);
+                    //tv_status.setText(result.getDeviceName() + ": " + initialDeviceState);
                     subscribeToEvents();
                     break;
 
                 case CHANNEL_NOT_AVAILABLE:
                     Toast.makeText(TrackerActivity.this, "Channel Not Available", Toast.LENGTH_SHORT).show();
-                    tv_status.setText("Channel not available!");
+                    //tv_status.setText("Channel not available!");
                     break;
 
                 case ADAPTER_NOT_DETECTED:
                     Toast.makeText(TrackerActivity.this, "Sensor not found", Toast.LENGTH_SHORT).show();
-                    tv_status.setText("Sensor not found");
+                    //tv_status.setText("Sensor not found");
                     break;
 
                 case BAD_PARAMS:
                     Toast.makeText(TrackerActivity.this, "Bad request parameters", Toast.LENGTH_SHORT).show();
-                    tv_status.setText("Bad request parameters");
+                    //tv_status.setText("Bad request parameters");
                     break;
 
                 case OTHER_FAILURE:
                     Toast.makeText(TrackerActivity.this, "Unknown failure. check logcat for details.", Toast.LENGTH_SHORT).show();
-                    tv_status.setText("OTHER FAILURE");
+                    //tv_status.setText("OTHER FAILURE");
                     break;
 
                 case DEPENDENCY_NOT_INSTALLED:
@@ -330,33 +323,30 @@ public class TrackerActivity extends Activity{
 
                 case USER_CANCELLED:
                     Toast.makeText(TrackerActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
-                    tv_status.setText("Canceled");
+                    //tv_status.setText("Cancelled");
                     break;
 
                 case UNRECOGNIZED:
                     Toast.makeText(TrackerActivity.this, "Failed: UNRECOGNIZED. PluginLib Upgrade Required?", Toast.LENGTH_SHORT).show();
-                    tv_status.setText("Unrecognized, update may be required");
+                    //tv_status.setText("Unrecognized, update may be required");
                     break;
 
                 default:
                     Toast.makeText(TrackerActivity.this, "Unrecognized result: " + resultCode, Toast.LENGTH_SHORT).show();
-                    tv_status.setText("Error code: " + resultCode);
+                    //tv_status.setText("Error code: " + resultCode);
                     break;
             }
         }
     };
 
-    IDeviceStateChangeReceiver mDeviceStateChangeReceiver = new IDeviceStateChangeReceiver()
-    {
+    IDeviceStateChangeReceiver mDeviceStateChangeReceiver = new IDeviceStateChangeReceiver() {
+
         @Override
-        public void onDeviceStateChange(final DeviceState newDeviceState)
-        {
-            runOnUiThread(new Runnable()
-            {
+        public void onDeviceStateChange(final DeviceState newDeviceState) {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
-                    tv_status.setText(bsdPcc.getDeviceName() + ": " + newDeviceState);
+                public void run() {
+                    //tv_status.setText(bsdPcc.getDeviceName() + ": " + newDeviceState);
                     if (newDeviceState == DeviceState.DEAD)
                         bsdPcc = null;
                 }
@@ -365,7 +355,7 @@ public class TrackerActivity extends Activity{
     };
 
     /**
-     *  Start the Ant+ Plugin manager when called.
+     * Start the Ant+ Plugin manager when called.
      */
     protected void startAntPlugin() {
         AntPluginPcc.startPluginManagerActivity(this);
@@ -376,6 +366,7 @@ public class TrackerActivity extends Activity{
      */
     public void subscribeToEvents() {
 
+        Log.d("ANT+", "going in subscribeToEvents");
         //Speed Receiver
         //TODO add options to change wheel size
         bsdPcc.subscribeCalculatedSpeedEvent(new CalculatedSpeedReceiver(wheelSize) {
@@ -499,11 +490,6 @@ public class TrackerActivity extends Activity{
 
 
     }
-
-
-
-
-
 
 }
 
