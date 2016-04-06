@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,10 +86,12 @@ public class TrackerActivity extends Activity {
 
         final Button Stop_button = (Button) findViewById(R.id.Stop_btn);
         final Button start_pause = (Button) findViewById(R.id.start_pause_btn);
+        final ImageButton Setting_button = (ImageButton) findViewById(R.id.SettingButton);
 
         final String Pause_String = getResources().getString(R.string.Pause_Button);
         final String Start_String = getResources().getString(R.string.Start_Button);
         final String Resume_String = getResources().getString(R.string.Resume_Button);
+
 
         //initialize map stuff
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -137,7 +140,15 @@ public class TrackerActivity extends Activity {
             }
         });
 
-        Toast.makeText(TrackerActivity.this, "Finish and starting resetPcc()", Toast.LENGTH_LONG).show();
+
+        Setting_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(TrackerActivity.this, SettingsActivity.class));
+            }
+        });
 
         resetPcc();
     }
