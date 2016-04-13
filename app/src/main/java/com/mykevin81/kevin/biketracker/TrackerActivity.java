@@ -367,12 +367,6 @@ public class TrackerActivity extends Activity {
         }
     };
 
-    /**
-     * Start the Ant+ Plugin manager when called.
-     */
-    protected void startAntPlugin() {
-        AntPluginPcc.startPluginManagerActivity(this);
-    }
 
     /**
      * Subscribe to the events and set the text to the view on screen
