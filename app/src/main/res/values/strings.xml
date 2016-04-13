@@ -36,16 +36,29 @@
     <string name="pref_title_display_name">Display name</string>
     <string name="pref_default_display_name">John Smith</string>
 
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
+    <!-- Wheel size decision -->
+    <string name="pref_title_wheel_size">Bicycle Wheel Size</string>
+    <string-array name="pref_wheel_size_titles">
+        <item>700c Tubular</item>
+        <item>700 x 18c</item>
+        <item>700 x 19c</item>
+        <item>700 x 20c</item>
+        <item>700 x 23c</item>
+        <item>700 x 25c</item>
+        <item>700 x 28c</item>
+        <item>700 x 32c</item>
+        <item>700 x 35c</item>
     </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
+    <string-array name="pref_wheel_circumference_values">
+        <item>2103</item>   <!--700c Tubular-->
+        <item>2070</item>   <!--700 x 18c-->
+        <item>2080</item>   <!--700 x 19c-->
+        <item>2086</item>   <!--700 x 20c-->
+        <item>2096</item>   <!--700 x 23c-->
+        <item>2105</item>   <!--700 x 25c-->
+        <item>2136</item>   <!--700 x 28c-->
+        <item>2155</item>   <!--700 x 32c-->
+        <item>2168</item>   <!--700 x 35c-->
     </string-array>
 
     <!-- Example settings for Data & Sync -->
