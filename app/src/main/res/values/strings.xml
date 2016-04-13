@@ -50,15 +50,15 @@
         <item>700 x 35c</item>
     </string-array>
     <string-array name="pref_wheel_circumference_values">
-        <item>2103</item>   <!--700c Tubular-->
-        <item>2070</item>   <!--700 x 18c-->
-        <item>2080</item>   <!--700 x 19c-->
-        <item>2086</item>   <!--700 x 20c-->
-        <item>2096</item>   <!--700 x 23c-->
-        <item>2105</item>   <!--700 x 25c-->
-        <item>2136</item>   <!--700 x 28c-->
-        <item>2155</item>   <!--700 x 32c-->
-        <item>2168</item>   <!--700 x 35c-->
+        <item>2.103</item>   <!--700c Tubular-->
+        <item>2.070</item>   <!--700 x 18c-->
+        <item>2.080</item>   <!--700 x 19c-->
+        <item>2.086</item>   <!--700 x 20c-->
+        <item>2.096</item>   <!--700 x 23c-->
+        <item>2.105</item>   <!--700 x 25c-->
+        <item>2.136</item>   <!--700 x 28c-->
+        <item>2.155</item>   <!--700 x 32c-->
+        <item>2.168</item>   <!--700 x 35c-->
     </string-array>
 
     <!-- Example settings for Data & Sync -->
