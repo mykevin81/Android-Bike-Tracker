@@ -29,4 +29,9 @@ public class MainActivityTest {
     public void startButtonTest() {
         onView(withId(R.id.Start_button)).check(ViewAssertions.matches(isClickable()));
     }
+
+    @Test
+    public void settingButtonTest() {
+        onView(withId(R.id.Setting_Button)).check(ViewAssertions.matches(isClickable()));
+    }
 }
