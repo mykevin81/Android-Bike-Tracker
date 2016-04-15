@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -91,6 +92,12 @@ public class TrackerActivity extends Activity {
         final String Pause_String = getResources().getString(R.string.Pause_Button);
         final String Start_String = getResources().getString(R.string.Start_Button);
         final String Resume_String = getResources().getString(R.string.Resume_Button);
+
+        //get wheel size from preference
+        //SharedPreferences pref = getSharedPreferences("wheel_size", MODE_PRIVATE);
+        //wheelSize = new BigDecimal(pref.getFloat("wheel_size", 0));
+
+        Log.d("wheelsize", "Wheel Size: " + wheelSize);
 
 
         //initialize map stuff
@@ -384,8 +391,8 @@ public class TrackerActivity extends Activity {
                     @Override
                     public void run() {
 
-                        //tv_speed.setText(String.valueOf(calculatedSpeed));
-                        tv_speed.setText("RUN!");//TEST
+                        tv_speed.setText(String.valueOf(calculatedSpeed));
+                        //tv_speed.setText("RUN!");//TEST
                     }
                 });
             }
@@ -443,8 +450,8 @@ public class TrackerActivity extends Activity {
                                                     runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            //tv_cadence.setText(String.valueOf(calculatedCadence));
-                                                            tv_cadence.setText("ROLL!");
+                                                            tv_cadence.setText(String.valueOf(calculatedCadence));
+
                                                         }
                                                     });
                                                 }
