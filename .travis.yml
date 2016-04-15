@@ -2,6 +2,10 @@ language: android
 
 before_install:
  - chmod +x gradlew
+ - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+ - emulator -avd test -no-skin -no-audio -no-window &
+ - adb wait-for-device
+ - adb shell input keyevent 82 &
 
 branches:
   only:
@@ -24,4 +28,6 @@ android:
     # The SDK version used to compile your project
     - android-23
 
-script: ./gradlew check
+script:
+    -./gradlew build connectedAndroidTest
+    -./gradlew check
