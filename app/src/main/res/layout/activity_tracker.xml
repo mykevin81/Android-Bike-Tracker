@@ -117,7 +117,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:id="@+id/HistoryButton"
-                    android:background="@drawable/ic_action_view_as_list"
+                    android:background="@drawable/ic_ant_disconnected_24dp"
                     android:layout_gravity="center" />
 
                 <ImageButton
@@ -126,7 +126,7 @@
                     android:layout_weight="1"
                     android:id="@+id/SettingButton"
                     android:contentDescription="@string/Setting_Button"
-                    android:background="@drawable/ic_action_settings"
+                    android:background="@drawable/ic_settings_black_24dp"
                     android:layout_gravity="center" />
 
 
