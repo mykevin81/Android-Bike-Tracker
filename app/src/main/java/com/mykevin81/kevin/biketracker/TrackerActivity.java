@@ -12,6 +12,8 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -64,9 +66,15 @@ public class TrackerActivity extends Activity {
     public long time = 0;
     public long timeWhenStopped = 0;
 
+
     TextView tv_status;
     TextView tv_speed;
     TextView tv_cadence;
+
+    Button Stop_button;
+    Button start_pause;
+    ImageButton Setting_button;
+    ImageButton Sensor_button;
 
     //Ant+ sensor variable
     AntPlusBikeSpeedDistancePcc bsdPcc = null;
@@ -85,19 +93,21 @@ public class TrackerActivity extends Activity {
         tv_speed = (TextView) findViewById(R.id.tv_speed);
         tv_cadence = (TextView) findViewById(R.id.tv_cadence);
 
-        final Button Stop_button = (Button) findViewById(R.id.Stop_btn);
-        final Button start_pause = (Button) findViewById(R.id.start_pause_btn);
-        final ImageButton Setting_button = (ImageButton) findViewById(R.id.SettingButton);
+        Stop_button = (Button) findViewById(R.id.Stop_btn);
+        start_pause = (Button) findViewById(R.id.start_pause_btn);
+        Setting_button = (ImageButton) findViewById(R.id.SettingButton);
+        Sensor_button = (ImageButton) findViewById(R.id.SensorButton);
 
         final String Pause_String = getResources().getString(R.string.Pause_Button);
         final String Start_String = getResources().getString(R.string.Start_Button);
         final String Resume_String = getResources().getString(R.string.Resume_Button);
 
         //get wheel size from preference
-        //SharedPreferences pref = getSharedPreferences("wheel_size", MODE_PRIVATE);
-        //wheelSize = new BigDecimal(pref.getFloat("wheel_size", 0));
+        SharedPreferences wheelSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        String TempWheelSize = wheelSettings.getString("wheel_size", "Non");
+        wheelSize = new BigDecimal(TempWheelSize);
 
-        Log.d("wheelsize", "Wheel Size: " + wheelSize);
+        Log.d("wheelsize", "Wheel Size: " + TempWheelSize);
 
 
         //initialize map stuff
@@ -144,6 +154,16 @@ public class TrackerActivity extends Activity {
                 stopTimer();
                 //set start_pause button text back to start
                 start_pause.setText(Start_String);
+            }
+        });
+
+        Sensor_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (bsdReleaseHandle == null) {
+                    resetPcc();
+                }
             }
         });
 
@@ -287,6 +307,7 @@ public class TrackerActivity extends Activity {
                     Toast.makeText(TrackerActivity.this, "Successfully Connected: " + result.getDeviceName(), Toast.LENGTH_SHORT).show();
                     //tv_status.setText(result.getDeviceName() + ": " + initialDeviceState);
                     subscribeToEvents();
+                    Sensor_button.setImageResource(R.drawable.ic_ant_connected_24dp);
                     break;
 
                 case CHANNEL_NOT_AVAILABLE:
