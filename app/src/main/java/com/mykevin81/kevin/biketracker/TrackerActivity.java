@@ -286,6 +286,21 @@ public class TrackerActivity extends Activity {
 
     //======================== ANT+ Functions ===================
 
+    private void disconnectPcc() {
+        if (bsdReleaseHandle != null) {
+            bsdReleaseHandle.close();
+        }
+
+        if (bcReleaseHandle != null) {
+            bcReleaseHandle.close();
+        }
+
+        bsdPcc = null;
+        bsdReleaseHandle = null;
+        bcPcc = null;
+        bcReleaseHandle = null;
+    }
+
     /**
      * reset the connection if there is an old connection
      */
@@ -425,7 +440,7 @@ public class TrackerActivity extends Activity {
                     @Override
                     public void run() {
 
-                        tv_speed.setText(String.valueOf(calculatedSpeed));
+                        tv_speed.setText(String.valueOf(calculatedSpeed.setScale(1, BigDecimal.ROUND_HALF_UP)));
                         //tv_speed.setText("RUN!");//TEST
                     }
                 });
@@ -484,7 +499,7 @@ public class TrackerActivity extends Activity {
                                                     runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            tv_cadence.setText(String.valueOf(calculatedCadence));
+                                                            tv_cadence.setText(String.valueOf(calculatedCadence.toBigInteger()));
 
                                                         }
                                                     });
@@ -520,7 +535,7 @@ public class TrackerActivity extends Activity {
 
                                             if (newDeviceState != DeviceState.TRACKING) {
                                                 //tv_cadence.setText(newDeviceState.toString());
-                                                tv_cadence.setText("newRoll");
+                                                tv_cadence.setText("00");
                                             }
 
                                             if (newDeviceState == DeviceState.DEAD) {
