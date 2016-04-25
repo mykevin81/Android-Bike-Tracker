@@ -82,7 +82,10 @@ public class TrackerActivity extends Activity {
     AntPlusBikeCadencePcc bcPcc = null;
     PccReleaseHandle<AntPlusBikeCadencePcc> bcReleaseHandle = null;
 
+    //settings variable
     BigDecimal wheelSize = new BigDecimal(2.095);
+    SharedPreferences wheelSettings;
+    String TempWheelSize;
 
 
     @Override
@@ -103,8 +106,8 @@ public class TrackerActivity extends Activity {
         final String Resume_String = getResources().getString(R.string.Resume_Button);
 
         //get wheel size from preference
-        SharedPreferences wheelSettings = PreferenceManager.getDefaultSharedPreferences(this);
-        String TempWheelSize = wheelSettings.getString("wheel_size", "Non");
+        wheelSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        TempWheelSize = wheelSettings.getString("wheel_size", "Non");
         wheelSize = new BigDecimal(TempWheelSize);
 
         Log.d("wheelsize", "Wheel Size: " + TempWheelSize);
@@ -178,6 +181,16 @@ public class TrackerActivity extends Activity {
         });
 
         resetPcc();
+    }
+
+    @Override
+    protected void onResume() {
+
+        if(wheelSettings.getString("wheel_size", "") != TempWheelSize && wheelSettings.getString("wheel_size", "") != "") {
+            wheelSize = new BigDecimal(wheelSettings.getString("wheel_size", ""));
+            Log.d("wheelsize", "New Size: " + wheelSize);
+        }
+        super.onResume();
     }
 
     @Override
