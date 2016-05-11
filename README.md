@@ -12,9 +12,9 @@ Android project for bicycle tracking through ant+ sensors
 ==================================
 
 ## Introduction
-This is an android bike computer built to work in conjunction with ant+ sensors.
-Ant+ sensors for bicycle can be found in many product.
-The two primary for ant+ sensor is bike cadence and speed.
+Android Bike Tracker is a Android application used as a head on display while user is biking. This application integrates ant+ wireless technology that tracks accurate bike speed and cadence.
+
+This project is still on-going and expect to release beta in 2016.
 
 
 ## ANT+ SDK
